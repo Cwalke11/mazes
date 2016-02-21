@@ -4,6 +4,7 @@
 #include "grid.h"
 #include "maze_generators.h"
 
+int make_entrances(grid_t* grid);
 
 int binary_tree_generator(grid_t* grid){
 	int columns = grid->columns;
@@ -29,11 +30,11 @@ int binary_tree_generator(grid_t* grid){
 			}
 		}
 	}	
+	make_entrances(grid);
 	return 0;
 
 }
 int cell_choice(int j, int start){
-	srand(time(NULL));
 	if(j){
 		return (rand() % j) + start;
 	}
@@ -61,7 +62,7 @@ int side_winder_generator(grid_t* grid){
 				start = j;
 				is_new_run = 0;
 			}
-			if(j == (columns) ){ 
+			if(j == (columns-1) ){ 
 				//close out run and pick a cell to link north
 				col_choice = cell_choice(j, start);
 				link_north(grid, i, col_choice);
@@ -79,8 +80,6 @@ int side_winder_generator(grid_t* grid){
 			
 		}
 	}
-	
-	
 	return 0;
 }
 
